@@ -1,0 +1,18 @@
+version: '3'
+services:
+    test-jest:
+        build: .
+        depends_on:
+            - mongo
+        links:
+            - mongo
+        environment:
+            NODE_ENV: test
+            MONGO_URL: mongodb://mongo/test
+        volumes:
+            - "./src:/app/src"
+        entrypoint: "npm run test"
+    mongo:
+        image: mongo
+        ports:
+          - "27017:27017"
